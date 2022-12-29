@@ -1,0 +1,17 @@
+[
+  {
+    "tableName": "sequence_config",
+    "data": [
+      {
+        "id": 1,
+        "slug": "Property",
+        "table_name": "property",
+        "date_format": "YYMMDD",
+        "starts_with": 1,
+        "is_active": true,
+        "prefix": "PR",
+        "seed_value": 3
+      }
+    ]
+  }
+]

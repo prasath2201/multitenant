@@ -1,0 +1,32 @@
+{
+  "name": "mulititenant",
+  "version": "1.0.0",
+  "description": "create multi tenant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/babel-node --max-old-space-size:4096  -r dotenv/config index.js",
+    "start:nodemon": "nodemon -r dotenv/config --exec node_modules/.bin/babel-node index.js",
+    "create_migration": "npx knex migrate:make 'file_name' --env staging --knexfile ./db/index.js",
+    "migration": "npx knex migrate:latest --knexfile ./db/index.js",
+    "make-seed": "npx knex seed:make dev --knexfile ./db/index.js",
+    "seed": "npx knex seed:run --env staging --knexfile ./db/index.js",
+    "down": "npx knex migrate:down --knexfile ./db/index.js"
+  },
+  "author": "prasath",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "continuation-local-storage": "^3.2.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "knex": "^2.3.0",
+    "nodemon": "^2.0.20",
+    "objection": "^3.0.1",
+    "pg": "^8.8.0",
+    "pgtools": "^0.3.2"
+  }
+}

@@ -1,0 +1,61 @@
+{
+    // Place your property-automate-backend workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    "migration-boilerplate": {
+      "scope": "javascript,typescript",
+      "prefix": "migration:create",
+      "body": [
+        "const path = require('path');",
+        "const tenants = async (tenant) => {",
+        " return new Promise(async (resolve, reject) => {",
+        "try {",
+        "tenant",
+        ".withSchema('public')",
+        ".table('knexDbMigrations')",
+        ".where({",
+        "file_name: path.basename(__filename),",
+        "})",
+        ".then(async (result) => {",
+        "if (result.length === 0) {",
+  
+        " await tenant.schema",
+        ".withSchema('public')",
+        ".createTable(`${1:TableName}`, (table) => {",
+        "table",
+        " .uuid('id')",
+        ".defaultTo(tenant.raw('uuid_generate_v4()'))",
+        ".primary();",
+        "table.boolean('is_active').defaultTo(false);",
+        "table.dateTime('created_at').defaultTo(tenant.fn.now());",
+        "table.dateTime('updated_at').defaultTo(tenant.fn.now());",
+        " });",
+  
+        "await tenant.raw(",
+        "`insert into public.\"knexDbMigrations\" (\"file_name\") values (?)`,",
+        " [path.basename(__filename)]",
+        " );",
+  
+        "console.log(path.basename(__filename), 'migrated successfully!');",
+        " } else {",
+        "console.log(path.basename(__filename), 'already exists!');",
+        "}",
+        " resolve();",
+        "});",
+        "} catch (error) {",
+        " console.log(path.basename(__filename), error);",
+        " reject(error);",
+        "}",
+        "});",
+        "};",
+  
+        "module.exports = tenants;"
+      ],
+      "description": "migration-snippet"
+    }
+  }
+  
